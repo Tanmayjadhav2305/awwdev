@@ -1,4 +1,4 @@
-import { Code, Smartphone, Search, PenTool, Database, Cloud, Layout } from 'lucide-react';
+import { Code, Smartphone, Search, PenTool, Database, Cloud } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 export interface ServiceDetail {
@@ -117,23 +117,6 @@ export const servicesData: Record<string, ServiceDetail> = {
         technologies: ["AWS", "Docker", "Kubernetes", "Terraform", "GitHub Actions", "Datadog"],
         caseStudyMetric: "99.999%",
         caseStudyText: "Uptime achieved across our managed enterprise cloud clusters."
-    },
-    "cms-ecommerce": {
-        id: "cms-ecommerce",
-        title: "CMS & E-commerce",
-        icon: Layout,
-        shortDesc: "Scalable online stores and content platforms using WordPress, Shopify, and Headless CMS.",
-        heroHeadline: "Command Your Content.",
-        heroSubheadline: "Powerful e-commerce engines and content management systems designed for non-technical control and massive scale.",
-        overview: "We bridge the gap between powerful engineering and user-friendly management. Our CMS solutions allow your team to update content instantly while maintaining the performance and security of an enterprise application. We specialize in high-performance WordPress and Shopify Plus scaling.",
-        features: [
-            { title: "Headless CMS", desc: "Decoupled content (Contentful/Strapi) served via lightning-fast APIs to any device." },
-            { title: "Enterprise WordPress", desc: "Highly secure, performant, and scalable WordPress architectures for major brands." },
-            { title: "Shopify Plus", desc: "Customized e-commerce themes and custom apps for high-volume retailers." }
-        ],
-        technologies: ["WordPress", "Shopify", "Contentful", "WooCommerce", "PHP", "Liquid"],
-        caseStudyMetric: "150%",
-        caseStudyText: "Increase in checkout conversion rates after migrating to our headless e-commerce stack."
     }
 };
 

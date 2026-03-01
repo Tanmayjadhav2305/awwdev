@@ -1,11 +1,9 @@
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { Mail, ArrowRight, Sparkles } from 'lucide-react';
-import { useState } from 'react';
 
 export default function ContactSection() {
-    const [focusedField, setFocusedField] = useState<string | null>(null);
-
-    const containerVariants = {
+    const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
@@ -16,7 +14,7 @@ export default function ContactSection() {
         }
     };
 
-    const itemVariants = {
+    const itemVariants: Variants = {
         hidden: { opacity: 0, y: 30 },
         visible: {
             opacity: 1,
@@ -32,7 +30,7 @@ export default function ContactSection() {
             <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-900/10 blur-[150px] rounded-full pointer-events-none" />
 
             {/* Subtle Grid Overlay */}
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTYwIDBMMCAwaDB2NjBoNjBWem0tMSAxbS0xIDFIIDFWMkgyenoiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSLCAyNTUsIDAuMDIpIiBzdHJva2Utd2lkdGg9IjEiLz48L3N2Zz4=')] opacity-50 mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTYwIDBMMCAwaDB2NjBoNjBWem0tMSAxbS0xIDFIIDFWMkgyenoiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSLCAyNTUsIDAuMDIpIiBzdHJva2Utd2lkdGg9IjEiLz48L3N2Zz4=')] opacity-50 [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center">
@@ -94,18 +92,14 @@ export default function ContactSection() {
                                         <input
                                             type="text"
                                             id="firstName"
+                                            name="firstName"
                                             required
-                                            onFocus={() => setFocusedField('firstName')}
-                                            onBlur={() => setFocusedField(null)}
                                             className="w-full bg-transparent border-b-2 border-white/10 px-0 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary-500 transition-colors peer"
-                                            placeholder="John"
+                                            placeholder=" "
                                         />
                                         <label
                                             htmlFor="firstName"
-                                            className={`absolute left-0 transition-all duration-300 pointer-events-none
-                                                ${focusedField === 'firstName' ? '-top-5 text-xs text-primary-500' : 'top-3 text-base text-gray-500 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-5 peer-focus:text-xs peer-focus:text-primary-500'}
-                                                peer-valid:-top-5 peer-valid:text-xs peer-valid:text-gray-400
-                                            `}
+                                            className="absolute left-0 top-3 text-base text-gray-500 transition-all duration-300 pointer-events-none peer-focus:-top-5 peer-focus:text-xs peer-focus:text-primary-500 peer-[:not(:placeholder-shown)]:-top-5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-gray-400"
                                         >
                                             First Name
                                         </label>
@@ -116,18 +110,14 @@ export default function ContactSection() {
                                         <input
                                             type="text"
                                             id="lastName"
+                                            name="lastName"
                                             required
-                                            onFocus={() => setFocusedField('lastName')}
-                                            onBlur={() => setFocusedField(null)}
                                             className="w-full bg-transparent border-b-2 border-white/10 px-0 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary-500 transition-colors peer"
-                                            placeholder="Doe"
+                                            placeholder=" "
                                         />
                                         <label
                                             htmlFor="lastName"
-                                            className={`absolute left-0 transition-all duration-300 pointer-events-none
-                                                ${focusedField === 'lastName' ? '-top-5 text-xs text-primary-500' : 'top-3 text-base text-gray-500 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-5 peer-focus:text-xs peer-focus:text-primary-500'}
-                                                peer-valid:-top-5 peer-valid:text-xs peer-valid:text-gray-400
-                                            `}
+                                            className="absolute left-0 top-3 text-base text-gray-500 transition-all duration-300 pointer-events-none peer-focus:-top-5 peer-focus:text-xs peer-focus:text-primary-500 peer-[:not(:placeholder-shown)]:-top-5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-gray-400"
                                         >
                                             Last Name
                                         </label>
@@ -139,18 +129,14 @@ export default function ContactSection() {
                                     <input
                                         type="email"
                                         id="email"
+                                        name="email"
                                         required
-                                        onFocus={() => setFocusedField('email')}
-                                        onBlur={() => setFocusedField(null)}
                                         className="w-full bg-transparent border-b-2 border-white/10 px-0 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary-500 transition-colors peer"
-                                        placeholder="john@company.com"
+                                        placeholder=" "
                                     />
                                     <label
                                         htmlFor="email"
-                                        className={`absolute left-0 transition-all duration-300 pointer-events-none
-                                            ${focusedField === 'email' ? '-top-5 text-xs text-primary-500' : 'top-3 text-base text-gray-500 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-5 peer-focus:text-xs peer-focus:text-primary-500'}
-                                            peer-valid:-top-5 peer-valid:text-xs peer-valid:text-gray-400
-                                        `}
+                                        className="absolute left-0 top-3 text-base text-gray-500 transition-all duration-300 pointer-events-none peer-focus:-top-5 peer-focus:text-xs peer-focus:text-primary-500 peer-[:not(:placeholder-shown)]:-top-5 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-gray-400"
                                     >
                                         Email Address
                                     </label>
@@ -160,19 +146,15 @@ export default function ContactSection() {
                                 <div className="relative group pt-4">
                                     <textarea
                                         id="details"
+                                        name="details"
                                         rows={4}
                                         required
-                                        onFocus={() => setFocusedField('details')}
-                                        onBlur={() => setFocusedField(null)}
                                         className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-transparent focus:outline-none focus:border-primary-500 focus:bg-white/10 transition-all resize-none peer"
-                                        placeholder="Tell us about your technical requirements..."
+                                        placeholder=" "
                                     ></textarea>
                                     <label
                                         htmlFor="details"
-                                        className={`absolute left-5 transition-all duration-300 pointer-events-none
-                                            ${focusedField === 'details' ? '-top-2 text-xs text-primary-500 bg-[#0a0a0a] px-1' : 'top-4 text-base text-gray-500 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 peer-focus:bg-[#0a0a0a] peer-focus:px-1'}
-                                            peer-valid:-top-2 peer-valid:text-xs peer-valid:text-gray-400 peer-valid:bg-[#0a0a0a] peer-valid:px-1
-                                        `}
+                                        className="absolute left-5 top-4 text-base text-gray-500 transition-all duration-300 pointer-events-none peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 peer-focus:bg-[#0a0a0a] peer-focus:px-1 peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-gray-400 peer-[:not(:placeholder-shown)]:bg-[#0a0a0a] peer-[:not(:placeholder-shown)]:px-1"
                                     >
                                         Project Details
                                     </label>
