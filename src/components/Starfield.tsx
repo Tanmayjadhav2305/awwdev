@@ -1,11 +1,34 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 export default function Starfield() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [isVisible, setIsVisible] = useState(true);
+    const isMobile = useIsMobile();
+
+    // Intersection Observer to pause rendering when off-screen
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsVisible(entry.isIntersecting);
+            },
+            { threshold: 0 } // Trigger as soon as 1 pixel is visible/invisible
+        );
+
+        if (canvasRef.current) {
+            observer.observe(canvasRef.current);
+        }
+
+        return () => {
+            if (canvasRef.current) {
+                observer.unobserve(canvasRef.current);
+            }
+        };
+    }, []);
 
     useEffect(() => {
         const canvas = canvasRef.current;
-        if (!canvas) return;
+        if (!canvas || !isVisible) return; // Don't run the loop if hidden!
 
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
@@ -16,15 +39,16 @@ export default function Starfield() {
         canvas.height = height;
 
         const particles: { x: number; y: number; z: number; originalZ: number; alpha: number; color: string }[] = [];
-        const numParticles = 800; // Dense particle field
-        const colors = ['#3b82f6', '#8b5cf6', '#0ea5e9', '#ffffff']; // Blue, Purple, Light Blue, White
+        // Dramatically reduce particle count on mobile for performance
+        const numParticles = isMobile ? 200 : 800;
+        const colors = ['#3b82f6', '#8b5cf6', '#0ea5e9', '#ffffff'];
 
         for (let i = 0; i < numParticles; i++) {
             particles.push({
                 x: (Math.random() - 0.5) * 3000,
                 y: (Math.random() - 0.5) * 3000,
                 z: Math.random() * 2000,
-                originalZ: 0, // Will be set to max Z
+                originalZ: 0,
                 alpha: Math.random() * 0.8 + 0.2,
                 color: colors[Math.floor(Math.random() * colors.length)]
             });
@@ -57,21 +81,22 @@ export default function Starfield() {
         const render = () => {
             ctx.clearRect(0, 0, width, height);
 
-            // Smooth mouse interpolation (parallax effect)
-            mouseX += (targetX - mouseX) * 0.05;
-            mouseY += (targetY - mouseY) * 0.05;
+            // Smooth mouse interpolation (parallax effect) - skip on mobile
+            if (!isMobile) {
+                mouseX += (targetX - mouseX) * 0.05;
+                mouseY += (targetY - mouseY) * 0.05;
+            }
 
             const cx = width / 2;
             const cy = height / 2;
 
             // Calculate pan based on mouse deviation from center
-            const panX = (mouseX - cx) * 0.5;
-            const panY = (mouseY - cy) * 0.5;
+            const panX = isMobile ? 0 : (mouseX - cx) * 0.5;
+            const panY = isMobile ? 0 : (mouseY - cy) * 0.5;
 
-            time += 0.002; // Global rotation time
+            time += 0.002;
 
             particles.forEach((p) => {
-                // Move particles towards camera slowly
                 p.z -= 1;
                 if (p.z <= 0) {
                     p.z = 2000;
@@ -79,34 +104,29 @@ export default function Starfield() {
                     p.y = (Math.random() - 0.5) * 3000;
                 }
 
-                // Apply a slight global rotation
                 const cosT = Math.cos(time);
                 const sinT = Math.sin(time);
                 const rx = p.x * cosT - p.y * sinT;
                 const ry = p.x * sinT + p.y * cosT;
 
-                // 3D Projection
                 const fov = 800;
                 const scale = fov / (fov + p.z);
 
-                // Add parallax pan to projection
                 const x2d = (rx - panX) * scale + cx;
                 const y2d = (ry - panY) * scale + cy;
 
-                // Only draw if within screen bounds
                 if (x2d >= 0 && x2d <= width && y2d >= 0 && y2d <= height) {
                     const depthAlpha = Math.max(0, 1 - (p.z / 2000));
                     ctx.globalAlpha = p.alpha * depthAlpha;
                     ctx.fillStyle = p.color;
 
-                    // Dash rendering (simulate motion blur / direction)
                     const dashLength = scale * 8;
                     const dashThickness = Math.max(0.5, scale * 2);
 
                     ctx.save();
                     ctx.translate(x2d, y2d);
 
-                    // Angle dash slightly towards center or based on rotation
+                    // Optimization: avoid Math.atan2 if possible, or accept minor inaccuracy
                     const angle = Math.atan2(ry - panY, rx - panX);
                     ctx.rotate(angle);
 
@@ -127,13 +147,13 @@ export default function Starfield() {
             window.removeEventListener('resize', handleResize);
             cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [isMobile, isVisible]); // Re-run when visibility or mobile state changes
 
     return (
         <canvas
             ref={canvasRef}
             className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ zIndex: 0 }} // Sits right behind the text but above the black background
+            style={{ zIndex: 0 }}
         />
     );
 }

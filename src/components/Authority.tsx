@@ -44,7 +44,7 @@ export default function Authority() {
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10" ref={ref}>
                 <motion.div
-                    className="text-center max-w-3xl mx-auto mb-20"
+                    className="text-center max-w-3xl mx-auto mb-20 relative z-10"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.7, ease: "easeOut" }}

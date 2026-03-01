@@ -1,26 +1,34 @@
 import { motion, useInView } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 const projects = [
-    { id: 1, title: 'Nova Fintech', category: 'Web App', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 2, title: 'Aurora Health', category: 'Mobile App', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 3, title: 'Nexus Supply Chain', category: 'Enterprise Dashboard', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 4, title: 'Apex Analytics', category: 'Data Vis', image: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }
+    { id: 1, title: 'Global Fintech Infrastructure', category: 'High-Frequency Trading System', image: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 2, title: 'Nexus Enterprise OS', category: 'Distributed Cloud Architecture', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 3, title: 'Aether Video Protocol', category: 'Low-Latency Streaming Network', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 4, title: 'OmniAI Neural Core', category: 'Machine Learning Intelligence', image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }
 ];
 
 export default function Projects() {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
+    const isMobile = useIsMobile();
 
-    const container = {
+    const container: Variants = {
         hidden: { opacity: 0 },
-        show: { opacity: 1, transition: { staggerChildren: 0.15 } }
+        show: { opacity: 1, transition: { staggerChildren: isMobile ? 0.05 : 0.15 } }
     };
 
-    const item = {
-        hidden: { opacity: 0, scale: 0.95, y: 30 },
-        show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring" as const, bounce: 0.3 } }
+    const item: Variants = {
+        hidden: { opacity: 0, scale: isMobile ? 1 : 0.95, y: isMobile ? 15 : 30 },
+        show: {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            transition: isMobile ? { duration: 0.4, ease: "easeOut" } : { type: "spring", bounce: 0.3 }
+        }
     };
 
     return (
@@ -33,9 +41,9 @@ export default function Projects() {
                     transition={{ duration: 0.6 }}
                 >
                     <div className="max-w-2xl">
-                        <span className="text-primary-500 font-semibold tracking-wider text-sm uppercase mb-4 block">Our Projects</span>
+                        <span className="text-primary-500 font-semibold tracking-wider text-sm uppercase mb-4 block">Flagship Deployments</span>
                         <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
-                            Featured Case Studies.
+                            Engineering Excellence.
                         </h2>
                     </div>
                     <button className="flex items-center gap-2 text-primary-400 hover:text-primary-300 font-medium transition-colors group">

@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { getAllServices } from '../data/servicesData';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isServicesHovered, setIsServicesHovered] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -15,11 +18,14 @@ export default function Navbar() {
     }, []);
 
     return (
-        <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-aww-dark/80 backdrop-blur-md border-b border-white/5 py-4' : 'bg-transparent py-6'}`}>
+        <nav
+            className={`fixed top-0 w-full z-[9999] transition-all pb-[1px] duration-300 ${scrolled ? 'bg-aww-dark/80 backdrop-blur-md border-b border-white/5 py-4' : 'bg-transparent py-6'}`}
+            style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden', border: 'none', outline: 'none' }}
+        >
             <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
 
                 {/* Brand Logo */}
-                <a href="#" className="flex items-center group relative h-10 w-48 md:w-[220px]">
+                <a href="/" className="flex items-center group relative h-10 w-48 md:w-[220px]">
                     <img
                         src="/awwdev-logo-3.png"
                         alt="Awwdev Logo"
@@ -30,30 +36,71 @@ export default function Navbar() {
                 {/* Desktop Links Pill */}
                 <div className="hidden lg:flex items-center bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-6 py-2 shadow-2xl">
                     <div className="flex items-center gap-6 xl:gap-8">
-                        <a href="#" className="text-sm font-medium text-white hover:text-primary-400 transition-colors">Home</a>
-                        <a href="#about" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">About Us</a>
+                        <a href="/" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
+                            Home
+                            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full" />
+                        </a>
+                        <a href="/#about" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
+                            About Us
+                            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full" />
+                        </a>
 
-                        <div className="relative group cursor-pointer">
-                            <a href="#services" className="text-sm font-medium text-gray-300 hover:text-white transition-colors flex items-center gap-1">
+                        <div
+                            className="relative cursor-pointer flex items-center h-full"
+                            onMouseEnter={() => setIsServicesHovered(true)}
+                            onMouseLeave={() => setIsServicesHovered(false)}
+                        >
+                            <a href="/#services" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors flex items-center gap-1 py-6 -my-6">
                                 Services
-                                <svg className="w-3 h-3 text-gray-500 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <motion.svg
+                                    animate={{ rotate: isServicesHovered ? 180 : 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="w-3 h-3 text-gray-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
+                                </motion.svg>
                             </a>
                             {/* Dropdown menu */}
-                            <div className="absolute top-full left-0 pt-4 hidden group-hover:block w-48 z-50">
-                                <div className="bg-aww-dark border border-white/10 rounded-xl p-2 shadow-xl">
-                                    <a href="#services" className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg">Web Development</a>
-                                    <a href="#services" className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg">Mobile Apps</a>
-                                    <a href="#services" className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg">SEO & Marketing</a>
-                                </div>
-                            </div>
+                            <AnimatePresence>
+                                {isServicesHovered && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 15, scale: 0.95, filter: 'blur(10px)' }}
+                                        animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                                        exit={{ opacity: 0, y: 10, scale: 0.95, filter: 'blur(10px)' }}
+                                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                        className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-80 z-50 origin-top"
+                                    >
+                                        <div className="bg-[#050505]/90 border border-white/10 rounded-2xl p-3 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] backdrop-blur-3xl">
+                                            {getAllServices().map((svc, i) => (
+                                                <motion.div
+                                                    key={svc.id}
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: i * 0.05, duration: 0.3, ease: 'easeOut' }}
+                                                >
+                                                    <Link
+                                                        to={`/services/${svc.id}`}
+                                                        onClick={() => setIsServicesHovered(false)}
+                                                        className="group block px-4 py-3 hover:bg-white/5 rounded-xl transition-all duration-300"
+                                                    >
+                                                        <span className="block text-sm font-semibold text-gray-200 group-hover:text-white group-hover:translate-x-1 transition-transform duration-300">{svc.title}</span>
+                                                        <span className="block text-xs text-gray-500 group-hover:text-primary-400 mt-1 transition-colors duration-300 line-clamp-1">{svc.shortDesc}</span>
+                                                    </Link>
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
 
-                        <a href="#projects" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Our Projects</a>
-                        <a href="#blogs" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Blogs</a>
-                        <a href="#contact" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Contact Us</a>
-                        <a href="#support" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Technical Support</a>
+                        <a href="/#projects" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
+                            Our Projects
+                            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full" />
+                        </a>
+                        <a href="/#contact" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
+                            Contact Us
+                            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full" />
+                        </a>
                     </div>
                 </div>
 
@@ -95,11 +142,11 @@ export default function Navbar() {
                             }}
                             className="flex flex-col items-center gap-8 w-full"
                         >
-                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="#" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Home</motion.a>
-                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="#about" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">About Us</motion.a>
-                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="#services" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Services</motion.a>
-                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="#projects" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Our Projects</motion.a>
-                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="#contact" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Contact</motion.a>
+                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="/" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Home</motion.a>
+                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="/#about" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">About Us</motion.a>
+                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="/#services" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Services</motion.a>
+                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="/#projects" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Our Projects</motion.a>
+                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="/#contact" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Contact</motion.a>
                         </motion.div>
                     </motion.div>
                 )}

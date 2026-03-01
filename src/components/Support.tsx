@@ -32,7 +32,7 @@ export default function Support() {
                     className="text-center max-w-3xl mx-auto mb-16"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.5 }}
                 >
                     <span className="text-blue-500 font-semibold tracking-wider text-sm uppercase mb-4 block">Technical Support</span>
                     <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 text-white">
