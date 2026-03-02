@@ -5,10 +5,14 @@ import { ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '../hooks/useIsMobile';
 
 const projects = [
-    { id: 1, title: 'Global Fintech Infrastructure', category: 'High-Frequency Trading System', image: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 2, title: 'Nexus Enterprise OS', category: 'Distributed Cloud Architecture', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 3, title: 'Aether Video Protocol', category: 'Low-Latency Streaming Network', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 4, title: 'OmniAI Neural Core', category: 'Machine Learning Intelligence', image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }
+    { id: 1, title: 'FreshKart Grocery', category: 'E-Commerce Platform', link: 'https://freshkart-eight.vercel.app', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 2, title: 'ResumeAI Analyzer', category: 'AI Fullstack App', link: 'https://resume-ai-frontend-dusky.vercel.app', image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 3, title: 'Haddu Clothing', category: 'Premium Streetwear Brand', link: 'https://www.hadduclothing.com/', image: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 4, title: 'Dr. Aniruddha Dhokare', category: 'Medical Consultant Portal', link: 'https://draniruddhadhokare.com/', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 5, title: 'Fotograf Magik', category: 'Photography Studio', link: 'https://magik.no', image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 6, title: 'Statim Build UK', category: 'Structural Construction', link: 'https://statimbuild.com/', image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 7, title: 'Sundown Studio', category: 'Creative Design Studio', link: 'https://omkar-uni.github.io/Sundown-Studio/', image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 8, title: 'Gooey Effect', category: 'Interactive Web Experience', link: 'https://omkar-uni.github.io/Gooey-Effect/', image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }
 ];
 
 export default function Projects() {
@@ -41,9 +45,9 @@ export default function Projects() {
                     transition={{ duration: 0.6 }}
                 >
                     <div className="max-w-2xl">
-                        <span className="text-primary-500 font-semibold tracking-wider text-sm uppercase mb-4 block">Flagship Deployments</span>
+                        <span className="text-primary-500 font-semibold tracking-wider text-sm uppercase mb-4 block">Featured Work</span>
                         <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
-                            Engineering Excellence.
+                            Digital Excellence.
                         </h2>
                     </div>
                     <button className="flex items-center gap-2 text-primary-400 hover:text-primary-300 font-medium transition-colors group">
@@ -59,10 +63,13 @@ export default function Projects() {
                     className="grid grid-cols-1 md:grid-cols-2 gap-8"
                 >
                     {projects.map((proj) => (
-                        <motion.div
+                        <motion.a
                             key={proj.id}
+                            href={proj.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             variants={item}
-                            className="group relative rounded-3xl overflow-hidden aspect-[4/3] sm:aspect-[16/9] cursor-pointer"
+                            className="group relative rounded-3xl overflow-hidden aspect-[4/3] sm:aspect-[16/9] cursor-pointer block"
                         >
                             <div className="absolute inset-0 bg-gray-900">
                                 <img
@@ -82,7 +89,7 @@ export default function Projects() {
                                     <ArrowUpRight className="w-5 h-5" />
                                 </div>
                             </div>
-                        </motion.div>
+                        </motion.a>
                     ))}
                 </motion.div>
             </div>

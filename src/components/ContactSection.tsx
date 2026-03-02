@@ -1,6 +1,8 @@
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import { Mail, ArrowRight, Sparkles } from 'lucide-react';
+import { Mail, ArrowRight, Sparkles, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 export default function ContactSection() {
     const containerVariants: Variants = {
@@ -20,6 +22,58 @@ export default function ContactSection() {
             opacity: 1,
             y: 0,
             transition: { type: "spring", stiffness: 50, damping: 15 }
+        }
+    };
+
+    const formRef = useRef<HTMLFormElement>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        details: ''
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (isSubmitting) return;
+
+        setIsSubmitting(true);
+        setSubmitStatus('idle');
+
+        try {
+            // NOTE: Replace 'YOUR_PUBLIC_KEY' with the actual EmailJS public key.
+            await emailjs.send(
+                'service_u3v91kq',
+                'template_1ys052i',
+                {
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    details: formData.details
+                },
+                'SYeLqVuPqtCWIjwa_'
+            );
+
+            setSubmitStatus('success');
+            setFormData({ firstName: '', lastName: '', email: '', details: '' }); // Reset form
+
+            // Revert success message after 5 seconds
+            setTimeout(() => setSubmitStatus('idle'), 5000);
+        } catch (error) {
+            console.error('EmailJS Error:', error);
+            setSubmitStatus('error');
+            setTimeout(() => setSubmitStatus('idle'), 5000);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -85,7 +139,7 @@ export default function ContactSection() {
                             {/* Inner Top Highlight */}
                             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
 
-                            <form className="space-y-8">
+                            <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     {/* First Name */}
                                     <div className="relative group">
@@ -93,8 +147,11 @@ export default function ContactSection() {
                                             type="text"
                                             id="firstName"
                                             name="firstName"
+                                            value={formData.firstName}
+                                            onChange={handleChange}
                                             required
-                                            className="w-full bg-transparent border-b-2 border-white/10 px-0 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary-500 transition-colors peer"
+                                            disabled={isSubmitting}
+                                            className="w-full bg-transparent border-b-2 border-white/10 px-0 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary-500 transition-colors peer disabled:opacity-50"
                                             placeholder=" "
                                         />
                                         <label
@@ -111,8 +168,11 @@ export default function ContactSection() {
                                             type="text"
                                             id="lastName"
                                             name="lastName"
+                                            value={formData.lastName}
+                                            onChange={handleChange}
                                             required
-                                            className="w-full bg-transparent border-b-2 border-white/10 px-0 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary-500 transition-colors peer"
+                                            disabled={isSubmitting}
+                                            className="w-full bg-transparent border-b-2 border-white/10 px-0 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary-500 transition-colors peer disabled:opacity-50"
                                             placeholder=" "
                                         />
                                         <label
@@ -130,8 +190,11 @@ export default function ContactSection() {
                                         type="email"
                                         id="email"
                                         name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
                                         required
-                                        className="w-full bg-transparent border-b-2 border-white/10 px-0 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary-500 transition-colors peer"
+                                        disabled={isSubmitting}
+                                        className="w-full bg-transparent border-b-2 border-white/10 px-0 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary-500 transition-colors peer disabled:opacity-50"
                                         placeholder=" "
                                     />
                                     <label
@@ -147,9 +210,12 @@ export default function ContactSection() {
                                     <textarea
                                         id="details"
                                         name="details"
+                                        value={formData.details}
+                                        onChange={handleChange}
                                         rows={4}
                                         required
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-transparent focus:outline-none focus:border-primary-500 focus:bg-white/10 transition-all resize-none peer"
+                                        disabled={isSubmitting}
+                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-transparent focus:outline-none focus:border-primary-500 focus:bg-white/10 transition-all resize-none peer disabled:opacity-50"
                                         placeholder=" "
                                     ></textarea>
                                     <label
@@ -160,17 +226,55 @@ export default function ContactSection() {
                                     </label>
                                 </div>
 
+                                {/* Status Messages */}
+                                <AnimatePresence mode="wait">
+                                    {submitStatus === 'success' && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 10 }}
+                                            className="flex items-center gap-2 text-green-400 bg-green-400/10 p-3 rounded-lg border border-green-400/20"
+                                        >
+                                            <CheckCircle2 className="w-5 h-5" />
+                                            <span className="text-sm font-medium">Message sent successfully! We'll be in touch soon.</span>
+                                        </motion.div>
+                                    )}
+                                    {submitStatus === 'error' && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 10 }}
+                                            className="flex items-center gap-2 text-red-400 bg-red-400/10 p-3 rounded-lg border border-red-400/20"
+                                        >
+                                            <AlertCircle className="w-5 h-5" />
+                                            <span className="text-sm font-medium">Something went wrong. Please try again or email us directly.</span>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+
                                 {/* Submit Button */}
                                 <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    type="button"
-                                    className="group relative w-full flex items-center justify-center gap-3 bg-white text-[#050505] font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] overflow-hidden transition-all duration-300 mt-4"
+                                    whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                                    whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                                    type="submit"
+                                    disabled={isSubmitting || submitStatus === 'success'}
+                                    className="group relative w-full flex items-center justify-center gap-3 bg-white text-[#050505] font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] overflow-hidden transition-all duration-300 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
-                                    <span className="relative z-10">Send Message</span>
-                                    <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                                    <span className="relative z-10">
+                                        {isSubmitting ? 'Sending...' : submitStatus === 'success' ? 'Sent!' : 'Send Message'}
+                                    </span>
+                                    {isSubmitting ? (
+                                        <Loader2 className="w-5 h-5 relative z-10 animate-spin" />
+                                    ) : submitStatus === 'success' ? (
+                                        <CheckCircle2 className="w-5 h-5 relative z-10" />
+                                    ) : (
+                                        <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                                    )}
+
                                     {/* Shimmer effect */}
-                                    <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+                                    {!isSubmitting && submitStatus !== 'success' && (
+                                        <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+                                    )}
                                 </motion.button>
                             </form>
                         </div>

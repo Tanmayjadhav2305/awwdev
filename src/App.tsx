@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import BookingPage from './pages/BookingPage';
 import ServicePage from './pages/ServicePage';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -15,7 +14,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services/:id" element={<ServicePage />} />
-          <Route path="/book" element={<BookingPage />} />
         </Routes>
         <Footer />
       </div>

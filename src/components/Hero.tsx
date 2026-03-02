@@ -1,10 +1,7 @@
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { ArrowRight, Code2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import Starfield from './Starfield';
-import Firecrackers from './Firecrackers';
-import AnimatedRockets from './AnimatedRockets';
 import { useIsMobile } from '../hooks/useIsMobile';
 
 export default function Hero() {
@@ -24,20 +21,18 @@ export default function Hero() {
     const item: Variants = {
         hidden: {
             opacity: 0,
-            y: isMobile ? 20 : 50,
-            rotateX: isMobile ? 0 : 15,
-            filter: isMobile ? "blur(0px)" : "blur(10px)"
+            y: isMobile ? 30 : 50,
+            rotateX: 15,
+            scale: 0.95
         },
         show: {
             opacity: 1,
             y: 0,
             rotateX: 0,
-            filter: "blur(0px)",
-            transition: isMobile ? { duration: 0.4, ease: "easeOut" } : {
-                type: "spring",
-                stiffness: 40,
-                damping: 10,
-                duration: 0.5
+            scale: 1,
+            transition: {
+                duration: 0.7,
+                ease: [0.22, 1, 0.36, 1]
             }
         }
     };
@@ -47,8 +42,6 @@ export default function Hero() {
 
             {/* Interactive 3D Starfield Background */}
             <Starfield />
-            <Firecrackers />
-            <AnimatedRockets />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
                 <motion.div
@@ -91,10 +84,10 @@ export default function Hero() {
                             <Code2 className="w-6 h-6" />
                             Build My Growth System
                         </a>
-                        <Link to="/book" className="w-full sm:w-auto min-h-[44px] px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 group hover:-translate-y-1 backdrop-blur-sm">
-                            Book a Strategy Call
+                        <a href="#projects" className="w-full sm:w-auto min-h-[44px] px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 group hover:-translate-y-1 backdrop-blur-sm">
+                            Explore Our Work
                             <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                        </Link>
+                        </a>
                     </motion.div>
                 </motion.div>
             </div>

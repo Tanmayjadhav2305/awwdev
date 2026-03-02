@@ -55,16 +55,6 @@ export default function Starfield() {
             particles[i].originalZ = particles[i].z;
         }
 
-        let mouseX = width / 2;
-        let mouseY = height / 2;
-        let targetX = mouseX;
-        let targetY = mouseY;
-
-        const handleMouseMove = (e: MouseEvent) => {
-            targetX = e.clientX;
-            targetY = e.clientY;
-        };
-
         const handleResize = () => {
             width = window.innerWidth;
             height = window.innerHeight;
@@ -72,7 +62,6 @@ export default function Starfield() {
             canvas.height = height;
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('resize', handleResize);
 
         let animationFrameId: number;
@@ -81,18 +70,12 @@ export default function Starfield() {
         const render = () => {
             ctx.clearRect(0, 0, width, height);
 
-            // Smooth mouse interpolation (parallax effect) - skip on mobile
-            if (!isMobile) {
-                mouseX += (targetX - mouseX) * 0.05;
-                mouseY += (targetY - mouseY) * 0.05;
-            }
-
             const cx = width / 2;
             const cy = height / 2;
 
-            // Calculate pan based on mouse deviation from center
-            const panX = isMobile ? 0 : (mouseX - cx) * 0.5;
-            const panY = isMobile ? 0 : (mouseY - cy) * 0.5;
+            // No panning (stable background)
+            const panX = 0;
+            const panY = 0;
 
             time += 0.002;
 
@@ -143,7 +126,6 @@ export default function Starfield() {
         render();
 
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('resize', handleResize);
             cancelAnimationFrame(animationFrameId);
         };

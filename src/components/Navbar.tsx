@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getAllServices } from '../data/servicesData';
 
@@ -104,14 +103,27 @@ export default function Navbar() {
                     </div>
                 </div>
 
-                {/* Mobile Toggle */}
+                {/* Mobile Toggle Animated Hamburger */}
                 <button
-                    className="lg:hidden text-gray-400 hover:text-white relative z-10"
+                    className="lg:hidden relative z-[100] w-12 h-12 flex flex-col items-center justify-center gap-[6px] group"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 >
-                    {mobileMenuOpen ? <X /> : <Menu />}
+                    <motion.span
+                        animate={mobileMenuOpen ? { rotate: 45, y: 8, backgroundColor: "#fff" } : { rotate: 0, y: 0, backgroundColor: "#9ca3af" }}
+                        transition={{ duration: 0.3, ease: "backOut" }}
+                        className="w-7 h-[2px] block origin-center transition-colors group-hover:bg-white rounded-full"
+                    />
+                    <motion.span
+                        animate={mobileMenuOpen ? { opacity: 0, x: 10, filter: "blur(4px)" } : { opacity: 1, x: 0, filter: "blur(0px)" }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="w-7 h-[2px] bg-gray-400 block transition-colors group-hover:bg-white rounded-full"
+                    />
+                    <motion.span
+                        animate={mobileMenuOpen ? { rotate: -45, y: -8, backgroundColor: "#fff" } : { rotate: 0, y: 0, backgroundColor: "#9ca3af" }}
+                        transition={{ duration: 0.3, ease: "backOut" }}
+                        className="w-7 h-[2px] block origin-center transition-colors group-hover:bg-white rounded-full"
+                    />
                 </button>
-
             </div>
 
             {/* Mobile Menu */}
@@ -124,13 +136,6 @@ export default function Navbar() {
                         transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
                         className="fixed inset-0 w-full h-[100svh] bg-[#050505]/95 backdrop-blur-2xl border-t border-white/10 p-6 flex flex-col items-center justify-center gap-6 lg:hidden z-40 overflow-hidden"
                     >
-                        {/* Close Button Inside */}
-                        <button
-                            className="absolute top-8 right-6 text-gray-400 hover:text-white"
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            <X className="w-8 h-8" />
-                        </button>
 
                         <motion.div
                             initial="hidden"
