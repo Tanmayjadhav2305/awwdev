@@ -4,20 +4,32 @@ import { ChevronDown } from 'lucide-react';
 
 const faqs = [
     {
-        question: "What is your typical project timeline?",
-        answer: "Enterprise builds typically range from 3 to 6 months depending on complexity. However, our agile methodology ensures you see functional, deployable iterations every 2-3 weeks. We prioritize velocity without sacrificing security."
+        question: "Do you only build websites or also help with growth?",
+        answer: "We don’t just build websites — we architect scalable growth infrastructure. That means performance optimization, SEO foundations, conversion-focused design, and systems built for long-term scale."
     },
     {
-        question: "Do you provide ongoing maintenance and scaling?",
-        answer: "Absolutely. We view launch as the starting line. We offer comprehensive SLA-backed maintenance, server monitoring, and continuous scaling architecture to ensure your product handles user growth seamlessly."
+        question: "What industries do you work with?",
+        answer: "We primarily work with startups, SaaS brands, and eCommerce businesses targeting growth-focused markets in the US and Europe."
     },
     {
-        question: "How do you handle data security and compliance?",
-        answer: "Security is baked into our architecture from Day 1. We utilize military-grade encryption, strict IAM roles on AWS/GCP, and adhere to industry-standard compliance frameworks (SOC2, HIPAA, GDPR) based on your specific requirements."
+        question: "Will my website be optimized for mobile?",
+        answer: "Absolutely. Every website we build is mobile-first, responsive, and performance-optimized across devices."
     },
     {
-        question: "What does your typical tech stack look like?",
-        answer: "While we are technology-agnostic and choose the right tool for the job, we specialize in high-performance stacks: React/Next.js for the frontend, Node.js or Go for the hyper-scalable backend, and precise cloud orchestration via AWS."
+        question: "Do you provide ongoing maintenance?",
+        answer: "Yes. We offer monthly maintenance plans covering updates, security, backups, performance monitoring, and minor content edits."
+    },
+    {
+        question: "What platform do you use?",
+        answer: "We primarily work with:\n• WordPress\n• WooCommerce\n• Shopify (for eCommerce)\n• Custom solutions when required\n\nPlatform choice depends on your scalability needs."
+    },
+    {
+        question: "Do you offer SEO services?",
+        answer: "Yes. We implement technical SEO foundations in every build and offer advanced SEO retainer plans for long-term organic growth."
+    },
+    {
+        question: "What makes Awwdev different?",
+        answer: "We approach every project as a growth system — not just a website. Strategy, scalability, performance, and profitability drive every decision we make."
     }
 ];
 
@@ -27,7 +39,7 @@ export default function FAQ() {
     const isInView = useInView(ref, { once: true, margin: "-100px" });
 
     return (
-        <section className="py-32 relative bg-[#030303] overflow-hidden" id="faq">
+        <section className="pt-32 pb-16 relative bg-[#030303] overflow-hidden" id="faq">
             {/* Ambient Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-[400px] bg-primary-900/10 blur-[150px] rounded-full pointer-events-none" />
 
@@ -74,7 +86,7 @@ export default function FAQ() {
                                             exit={{ height: 0, opacity: 0 }}
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                         >
-                                            <div className="px-6 pb-6 text-gray-400 leading-relaxed font-light">
+                                            <div className="px-6 pb-6 text-gray-400 leading-relaxed font-light whitespace-pre-wrap">
                                                 {faq.answer}
                                             </div>
                                         </motion.div>

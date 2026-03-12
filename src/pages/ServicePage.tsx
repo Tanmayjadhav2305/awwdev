@@ -1,7 +1,7 @@
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getServiceById } from '../data/servicesData';
-import CTA from '../components/CTA';
+import { ArrowLeft } from 'lucide-react';
 
 export default function ServicePage() {
     const { id } = useParams<{ id: string }>();
@@ -17,6 +17,24 @@ export default function ServicePage() {
     return (
         <main className="min-h-screen bg-[#050505] pt-32 pb-16">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                {/* Back Button */}
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="mb-12"
+                >
+                    <Link
+                        to="/"
+                        className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors group"
+                    >
+                        <div className="p-2 rounded-full bg-white/5 border border-white/10 group-hover:bg-white/10 group-hover:border-primary-500/30 transition-all duration-300">
+                            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
+                        </div>
+                        <span className="text-sm font-medium tracking-wide">Back to Home</span>
+                    </Link>
+                </motion.div>
+
                 {/* Hero Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -83,34 +101,10 @@ export default function ServicePage() {
                                 </motion.div>
                             ))}
 
-                            {/* Case Study Highlight Block */}
-                            {service.caseStudyMetric && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.6 }}
-                                    className="md:col-span-2 p-8 md:p-12 rounded-3xl bg-gradient-to-br from-primary-900/40 to-black border border-primary-500/20 relative overflow-hidden"
-                                >
-                                    {/* Abstract background shape */}
-                                    <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary-500/20 blur-[80px] rounded-full" />
-
-                                    <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                                        <div className="shrink-0 flex flex-col justify-center items-center w-40 h-40 rounded-full bg-primary-500/10 border border-primary-500/30 p-8">
-                                            <span className="text-4xl md:text-5xl font-black text-white">{service.caseStudyMetric}</span>
-                                        </div>
-                                        <div>
-                                            <h4 className="text-lg font-semibold text-primary-400 mb-2 uppercase tracking-wider">Proven Impact</h4>
-                                            <p className="text-xl text-gray-300 leading-relaxed font-light">"{service.caseStudyText}"</p>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            )}
                         </div>
                     </div>
                 </div>
             </div>
-
-            <CTA />
         </main>
     );
 }

@@ -78,7 +78,7 @@ export default function ContactSection() {
     };
 
     return (
-        <section className="py-32 relative bg-[#030303] overflow-hidden" id="contact">
+        <section className="pt-16 pb-32 relative bg-[#030303] overflow-hidden" id="contact">
             {/* Ambient Background Glows */}
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary-900/10 blur-[150px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-900/10 blur-[150px] rounded-full pointer-events-none" />

@@ -15,7 +15,7 @@ const steps = [
     },
     {
         title: "Security & QA",
-        description: "Military-grade testing. We subject our builds to rigorous penetration testing, automated QA, and stress-loading to ensure unbreakable stability.",
+        description: "We subject our builds to rigorous penetration testing, automated QA, and stress-loading to ensure unbreakable stability.",
         icon: ShieldCheck
     },
     {

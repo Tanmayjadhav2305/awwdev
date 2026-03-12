@@ -1,6 +1,6 @@
-import { Twitter, Linkedin, Github, Mail } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getAllServices } from '../data/servicesData';
+
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -19,40 +19,26 @@ export default function Footer() {
 
                     {/* Brand Section */}
                     <div className="sm:col-span-2 lg:col-span-5 pr-0 lg:pr-12">
-                        <a href="/" className="inline-block mb-8 group">
+                        <a href="/" className="block mb-8 group max-w-[200px] sm:max-w-[250px] lg:max-w-[320px]">
                             <img
                                 src="/awwdev-logo-3.png"
                                 alt="Awwdev Logo"
-                                className="h-16 sm:h-20 lg:h-28 w-auto object-contain origin-left group-hover:scale-105 transition-transform duration-500 will-change-transform"
+                                className="w-full h-auto object-contain origin-left group-hover:scale-105 transition-transform duration-500 will-change-transform"
                             />
                         </a>
                         <p className="text-gray-400 text-sm lg:text-base leading-relaxed mb-8 max-w-md font-light">
                             We architect high-performance digital infrastructures designed for relentless growth and uncompromised scalability.
                         </p>
-                        <div className="flex items-center gap-4">
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-500 hover:scale-110 hover:border-primary-400 transition-all duration-300 shadow-lg">
-                                <Twitter className="w-4 h-4" />
-                            </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-500 hover:scale-110 hover:border-primary-400 transition-all duration-300 shadow-lg">
-                                <Linkedin className="w-4 h-4" />
-                            </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-500 hover:scale-110 hover:border-primary-400 transition-all duration-300 shadow-lg">
-                                <Github className="w-4 h-4" />
-                            </a>
-                        </div>
                     </div>
 
                     {/* Quick Links */}
                     <div className="sm:col-span-1 lg:col-span-2 lg:ml-auto">
                         <h3 className="text-white font-bold tracking-wider uppercase text-sm mb-6">Services</h3>
                         <ul className="space-y-4">
-                            {getAllServices().slice(0, 4).map((svc) => (
-                                <li key={svc.id}>
-                                    <Link to={`/services/${svc.id}`} className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">
-                                        {svc.title}
-                                    </Link>
-                                </li>
-                            ))}
+                            <li><Link to="/services/website-development" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Website Development</Link></li>
+                            <li><Link to="/services/ui-ux-design" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">UI/UX Design</Link></li>
+                            <li><Link to="/services/scalable-web-architecture" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Scalable Web Architecture</Link></li>
+                            <li><Link to="/services/mobile-apps" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Mobile Apps</Link></li>
                         </ul>
                     </div>
 
@@ -62,7 +48,6 @@ export default function Footer() {
                         <ul className="space-y-4">
                             <li><a href="/#about" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">About Us</a></li>
                             <li><a href="/#projects" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Our Projects</a></li>
-                            <li><a href="/#about" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Careers</a></li>
                             <li><a href="/#contact" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Contact</a></li>
                         </ul>
                     </div>
@@ -77,6 +62,14 @@ export default function Footer() {
                                         <Mail className="w-4 h-4 text-primary-400 group-hover:text-white" />
                                     </div>
                                     <span className="text-gray-300 group-hover:text-white text-sm font-medium transition-colors">Support@awwdev.net</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tel:+917517793357" className="group flex items-center gap-3 bg-white/5 border border-white/10 p-3 rounded-xl hover:bg-white/10 hover:border-primary-500/50 transition-all duration-300 w-fit">
+                                    <div className="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-primary-500 transition-all duration-300">
+                                        <Phone className="w-4 h-4 text-primary-400 group-hover:text-white" />
+                                    </div>
+                                    <span className="text-gray-300 group-hover:text-white text-sm font-medium transition-colors">+91 75177 93357</span>
                                 </a>
                             </li>
                         </ul>

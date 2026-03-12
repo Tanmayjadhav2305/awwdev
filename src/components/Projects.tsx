@@ -1,24 +1,25 @@
 import { motion, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '../hooks/useIsMobile';
 
 const projects = [
+    { id: 5, title: 'Fotograf Magik', category: 'Photography Studio', link: 'https://magik.no', image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 4, title: 'Dr. Aniruddha Dhokare', category: 'Medical Consultant Portal', link: 'https://draniruddhadhokare.com/', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 6, title: 'Statim Build UK', category: 'Structural Construction', link: 'https://statimbuild.com/', image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
     { id: 1, title: 'FreshKart Grocery', category: 'E-Commerce Platform', link: 'https://freshkart-eight.vercel.app', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
     { id: 2, title: 'ResumeAI Analyzer', category: 'AI Fullstack App', link: 'https://resume-ai-frontend-dusky.vercel.app', image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 3, title: 'Haddu Clothing', category: 'Premium Streetwear Brand', link: 'https://www.hadduclothing.com/', image: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 4, title: 'Dr. Aniruddha Dhokare', category: 'Medical Consultant Portal', link: 'https://draniruddhadhokare.com/', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 5, title: 'Fotograf Magik', category: 'Photography Studio', link: 'https://magik.no', image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 6, title: 'Statim Build UK', category: 'Structural Construction', link: 'https://statimbuild.com/', image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 7, title: 'Sundown Studio', category: 'Creative Design Studio', link: 'https://omkar-uni.github.io/Sundown-Studio/', image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 8, title: 'Gooey Effect', category: 'Interactive Web Experience', link: 'https://omkar-uni.github.io/Gooey-Effect/', image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }
+    { id: 3, title: 'Haddu Clothing', category: 'Premium Streetwear Brand', link: 'https://www.hadduclothing.com/', image: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }
 ];
 
 export default function Projects() {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
     const isMobile = useIsMobile();
+    const [showAll, setShowAll] = useState(false);
+
+    const visibleProjects = showAll ? projects : projects.slice(0, 4);
 
     const container: Variants = {
         hidden: { opacity: 0 },
@@ -50,19 +51,23 @@ export default function Projects() {
                             Digital Excellence.
                         </h2>
                     </div>
-                    <button className="flex items-center gap-2 text-primary-400 hover:text-primary-300 font-medium transition-colors group">
-                        View All Work
-                        <ArrowUpRight className="w-5 h-5 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                    <button
+                        onClick={() => setShowAll(!showAll)}
+                        className="flex items-center gap-2 text-primary-400 hover:text-primary-300 font-medium transition-colors group"
+                    >
+                        {showAll ? 'View Less' : 'View All Work'}
+                        <ArrowUpRight className={showAll ? "w-5 h-5 group-hover:-translate-y-1 transition-transform rotate-180" : "w-5 h-5 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"} />
                     </button>
                 </motion.div>
 
                 <motion.div
+                    key={showAll ? "all" : "some"}
                     variants={container}
                     initial="hidden"
                     animate={isInView ? "show" : "hidden"}
                     className="grid grid-cols-1 md:grid-cols-2 gap-8"
                 >
-                    {projects.map((proj) => (
+                    {visibleProjects.map((proj) => (
                         <motion.a
                             key={proj.id}
                             href={proj.link}

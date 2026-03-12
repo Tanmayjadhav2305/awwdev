@@ -1,15 +1,14 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Layout, Server, Cloud, Database, Palette, FileCode2, Globe } from 'lucide-react';
+import { Layout, Server, Cloud, Database, Palette, Smartphone } from 'lucide-react';
 
 const technologies = [
-    { name: "React / Next.js", category: "Frontend Architecture", colSpan: "md:col-span-2", rowSpan: "md:row-span-1", glow: "from-cyan-500/20", icon: Layout },
-    { name: "Node.js", category: "Backend Engine", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-green-500/20", icon: Server },
-    { name: "AWS Cloud", category: "Cloud Infrastructure", colSpan: "md:col-span-1", rowSpan: "md:row-span-2", glow: "from-orange-500/20", icon: Cloud },
-    { name: "PostgreSQL", category: "Relational Data", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-blue-500/20", icon: Database },
-    { name: "Tailwind CSS", category: "Styling Framework", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-teal-500/20", icon: Palette },
-    { name: "TypeScript", category: "Type Safety", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-blue-600/20", icon: FileCode2 },
-    { name: "WordPress Headless", category: "Content Management", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-indigo-500/20", icon: Globe },
+    { name: "React / Next.js / WP", category: "Web Dev", colSpan: "md:col-span-2", rowSpan: "md:row-span-1", glow: "from-cyan-500/20", icon: Layout },
+    { name: "Figma / Framer", category: "Design (UI/UX)", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-pink-500/20", icon: Palette },
+    { name: "Node / Go", category: "Backend", colSpan: "md:col-span-1", rowSpan: "md:row-span-2", glow: "from-green-500/20", icon: Server },
+    { name: "PostgreSQL", category: "Database", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-blue-500/20", icon: Database },
+    { name: "React Native", category: "Applications (Mobile)", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-indigo-500/20", icon: Smartphone },
+    { name: "AWS / Docker", category: "Cloud / DevOps", colSpan: "md:col-span-2", rowSpan: "md:row-span-1", glow: "from-orange-500/20", icon: Cloud },
 ];
 
 export default function TechStack() {

@@ -4,10 +4,9 @@ import ServicesSection from '../components/ServicesSection';
 import ProcessTimeline from '../components/ProcessTimeline';
 import TechStack from '../components/TechStack';
 import Projects from '../components/Projects';
-import Authority from '../components/Authority';
+import TechPartners from '../components/TechPartners';
 import FAQ from '../components/FAQ';
 import ContactSection from '../components/ContactSection';
-import TechPartners from '../components/TechPartners';
 
 export default function Home() {
     return (
@@ -20,7 +19,6 @@ export default function Home() {
                 <ProcessTimeline />
                 <TechStack />
                 <Projects />
-                <Authority />
                 <FAQ />
                 <ContactSection />
             </main>
