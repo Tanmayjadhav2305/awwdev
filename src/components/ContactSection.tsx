@@ -111,16 +111,23 @@ export default function ContactSection() {
                             Ready to scale your digital infrastructure? Reach out to our engineering team to discuss your project requirements and technical architecture.
                         </motion.p>
 
-                        <motion.div variants={itemVariants} className="p-1 rounded-2xl bg-gradient-to-br from-white/10 to-transparent max-w-md">
-                            <div className="flex items-center gap-6 p-6 rounded-2xl bg-[#0a0a0a] border border-white/5 group hover:border-white/10 transition-colors">
-                                <div className="w-14 h-14 rounded-full bg-primary-500/10 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-primary-500/20 transition-all duration-500">
-                                    <Mail className="w-6 h-6 text-primary-400" />
+                        <motion.div variants={itemVariants} className="max-w-md">
+                            <a 
+                                href="mailto:Support@awwdev.net" 
+                                className="flex items-center gap-6 p-6 rounded-3xl bg-white/5 border border-white/10 group hover:bg-white/[0.08] hover:border-primary-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] transition-all duration-500 relative overflow-hidden"
+                            >
+                                {/* Glass Highlight */}
+                                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                                
+                                <div className="w-14 h-14 rounded-2xl bg-primary-500/10 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-500 shadow-inner">
+                                    <Mail className="w-6 h-6 text-primary-400 group-hover:text-white" />
                                 </div>
-                                <div>
-                                    <p className="text-sm text-gray-400 mb-1 font-medium">Email Support</p>
-                                    <a href="mailto:Support@awwdev.net" className="text-lg text-white font-medium hover:text-primary-400 transition-colors">Support@awwdev.net</a>
+                                <div className="flex-1">
+                                    <p className="text-xs text-primary-500 mb-1 font-bold uppercase tracking-widest">Direct Line</p>
+                                    <p className="text-lg text-white font-semibold group-hover:text-primary-400 transition-colors">Support@awwdev.net</p>
                                 </div>
-                            </div>
+                                <ArrowRight className="w-5 h-5 text-gray-600 group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
+                            </a>
                         </motion.div>
                     </motion.div>
 
@@ -207,6 +214,7 @@ export default function ContactSection() {
 
                                 {/* Project Details */}
                                 <div className="relative group pt-4">
+                                    <div className="absolute -inset-2 bg-gradient-to-r from-primary-500/20 to-blue-500/20 rounded-[24px] blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
                                     <textarea
                                         id="details"
                                         name="details"
@@ -215,12 +223,12 @@ export default function ContactSection() {
                                         rows={4}
                                         required
                                         disabled={isSubmitting}
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-transparent focus:outline-none focus:border-primary-500 focus:bg-white/10 transition-all resize-none peer disabled:opacity-50"
+                                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-transparent focus:outline-none focus:border-primary-500 focus:bg-white/5 focus:ring-4 focus:ring-primary-500/10 transition-all resize-none peer disabled:opacity-50 relative z-10"
                                         placeholder=" "
                                     ></textarea>
                                     <label
                                         htmlFor="details"
-                                        className="absolute left-5 top-4 text-base text-gray-500 transition-all duration-300 pointer-events-none peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary-500 peer-focus:bg-[#0a0a0a] peer-focus:px-1 peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-gray-400 peer-[:not(:placeholder-shown)]:bg-[#0a0a0a] peer-[:not(:placeholder-shown)]:px-1"
+                                        className="absolute left-5 top-8 text-base text-gray-500 transition-all duration-300 pointer-events-none peer-focus:top-1 peer-focus:text-xs peer-focus:text-primary-500 peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-gray-400 z-20"
                                     >
                                         Project Details
                                     </label>

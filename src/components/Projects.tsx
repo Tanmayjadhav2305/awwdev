@@ -5,21 +5,28 @@ import { ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '../hooks/useIsMobile';
 
 const projects = [
-    { id: 5, title: 'Fotograf Magik', category: 'Photography Studio', link: 'https://magik.no', image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 4, title: 'Dr. Aniruddha Dhokare', category: 'Medical Consultant Portal', link: 'https://draniruddhadhokare.com/', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 6, title: 'Statim Build UK', category: 'Structural Construction', link: 'https://statimbuild.com/', image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 1, title: 'FreshKart Grocery', category: 'E-Commerce Platform', link: 'https://freshkart-eight.vercel.app', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 2, title: 'ResumeAI Analyzer', category: 'AI Fullstack App', link: 'https://resume-ai-frontend-dusky.vercel.app', image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 3, title: 'Haddu Clothing', category: 'Premium Streetwear Brand', link: 'https://www.hadduclothing.com/', image: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }
+    { id: 1, title: 'Duckberry', category: 'Premium Fashion E-commerce', link: 'https://duckberry.in/', image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' },
+    { id: 5, title: 'FreshKart Grocery', category: 'E-Commerce Platform', link: 'https://freshkart-eight.vercel.app', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' },
+    // Hidden until View More
+    { id: 2, title: 'Fotograf Magik', category: 'Photography Portfolio', link: 'https://magik.no', image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' },
+    { id: 3, title: 'Medprocode', category: 'Healthcare Tech Platform', link: 'https://medprocode.com', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' },
+    { id: 4, title: 'Dr. Aniruddha Dhokare', category: 'Medical Consultant Portal', link: 'https://draniruddhadhokare.com/', image: 'https://images.unsplash.com/photo-1584982751601-97dcc096659c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' },
+    { id: 6, title: 'Vastrado', category: 'Retail & Fashion Brand', link: 'https://www.vastrado.com/', image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' },
+    { id: 7, title: 'TM Perfume House', category: 'Luxury Fragrance Store', link: 'https://tmperfumehouse.com', image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' },
+    { id: 8, title: 'Statim Build UK', category: 'Structural Construction', link: 'https://statimbuild.com/', image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' }
 ];
 
-export default function Projects() {
+interface ProjectsProps {
+    defaultShowAll?: boolean;
+}
+
+export default function Projects({ defaultShowAll = false }: ProjectsProps) {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
     const isMobile = useIsMobile();
-    const [showAll, setShowAll] = useState(false);
+    const [showAll, setShowAll] = useState(defaultShowAll);
 
-    const visibleProjects = showAll ? projects : projects.slice(0, 4);
+    const visibleProjects = showAll ? projects : projects.slice(0, 2);
 
     const container: Variants = {
         hidden: { opacity: 0 },
@@ -37,7 +44,7 @@ export default function Projects() {
     };
 
     return (
-        <section className="py-24 relative overflow-hidden" id="projects">
+        <section className="pt-24 pb-8 relative overflow-hidden" id="projects">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10" ref={ref}>
                 <motion.div
                     className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"

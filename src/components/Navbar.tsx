@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { getAllServices } from '../data/servicesData';
+import { getServiceById } from '../data/servicesData';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -35,21 +35,21 @@ export default function Navbar() {
                 {/* Desktop Links Pill */}
                 <div className="hidden lg:flex items-center bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-6 py-2 shadow-2xl">
                     <div className="flex items-center gap-6 xl:gap-8">
-                        <a href="/" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
+                        <Link to="/" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
                             Home
                             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full" />
-                        </a>
-                        <a href="/#about" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
+                        </Link>
+                        <Link to="/about" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
                             About Us
                             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full" />
-                        </a>
+                        </Link>
 
                         <div
                             className="relative cursor-pointer flex items-center h-full"
                             onMouseEnter={() => setIsServicesHovered(true)}
                             onMouseLeave={() => setIsServicesHovered(false)}
                         >
-                            <a href="/#services" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors flex items-center gap-1 py-6 -my-6">
+                            <Link to="/services" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors flex items-center gap-1 py-6 -my-6">
                                 Services
                                 <motion.svg
                                     animate={{ rotate: isServicesHovered ? 180 : 0 }}
@@ -57,7 +57,7 @@ export default function Navbar() {
                                     className="w-3 h-3 text-gray-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                 </motion.svg>
-                            </a>
+                            </Link>
                             {/* Dropdown menu */}
                             <AnimatePresence>
                                 {isServicesHovered && (
@@ -69,20 +69,20 @@ export default function Navbar() {
                                         className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-80 z-50 origin-top"
                                     >
                                         <div className="bg-[#050505]/90 border border-white/10 rounded-2xl p-3 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] backdrop-blur-3xl">
-                                            {getAllServices().map((svc, i) => (
+                                            {getServiceById('website-development')?.subServices.map((subSvc, i) => (
                                                 <motion.div
-                                                    key={svc.id}
+                                                    key={subSvc.id}
                                                     initial={{ opacity: 0, x: -10 }}
                                                     animate={{ opacity: 1, x: 0 }}
                                                     transition={{ delay: i * 0.05, duration: 0.3, ease: 'easeOut' }}
                                                 >
                                                     <Link
-                                                        to={`/services/${svc.id}`}
+                                                        to={`/services/website-development#${subSvc.id}`}
                                                         onClick={() => setIsServicesHovered(false)}
                                                         className="group block px-4 py-3 hover:bg-white/5 rounded-xl transition-all duration-300"
                                                     >
-                                                        <span className="block text-sm font-semibold text-gray-200 group-hover:text-white group-hover:translate-x-1 transition-transform duration-300">{svc.title}</span>
-                                                        <span className="block text-xs text-gray-500 group-hover:text-primary-400 mt-1 transition-colors duration-300 line-clamp-1">{svc.shortDesc}</span>
+                                                        <span className="block text-sm font-semibold text-gray-200 group-hover:text-white group-hover:translate-x-1 transition-transform duration-300">{subSvc.title}</span>
+                                                        <span className="block text-xs text-gray-500 group-hover:text-primary-400 mt-1 transition-colors duration-300 line-clamp-1">{subSvc.shortDesc}</span>
                                                     </Link>
                                                 </motion.div>
                                             ))}
@@ -92,14 +92,14 @@ export default function Navbar() {
                             </AnimatePresence>
                         </div>
 
-                        <a href="/#projects" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
+                        <Link to="/projects" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
                             Our Projects
                             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full" />
-                        </a>
-                        <a href="/#contact" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
+                        </Link>
+                        <Link to="/contact" className="group relative text-sm font-medium text-gray-300 hover:text-white transition-colors py-2">
                             Contact Us
                             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out rounded-full" />
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
@@ -147,11 +147,21 @@ export default function Navbar() {
                             }}
                             className="flex flex-col items-center gap-8 w-full"
                         >
-                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="/" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Home</motion.a>
-                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="/#about" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">About Us</motion.a>
-                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="/#services" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Services</motion.a>
-                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="/#projects" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Our Projects</motion.a>
-                            <motion.a variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} href="/#contact" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors">Contact</motion.a>
+                            <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                                <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors block">Home</Link>
+                            </motion.div>
+                            <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                                <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors block">About Us</Link>
+                            </motion.div>
+                            <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                                <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors block">Services</Link>
+                            </motion.div>
+                            <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                                <Link to="/projects" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors block">Our Projects</Link>
+                            </motion.div>
+                            <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                                <Link to="/contact" onClick={() => setMobileMenuOpen(false)} className="text-3xl font-medium tracking-wide text-white hover:text-primary-400 transition-colors block">Contact</Link>
+                            </motion.div>
                         </motion.div>
                     </motion.div>
                 )}

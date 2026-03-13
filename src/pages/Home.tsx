@@ -1,8 +1,6 @@
 import Hero from '../components/Hero';
 import About from '../components/About';
 import ServicesSection from '../components/ServicesSection';
-import ProcessTimeline from '../components/ProcessTimeline';
-import TechStack from '../components/TechStack';
 import Projects from '../components/Projects';
 import TechPartners from '../components/TechPartners';
 import FAQ from '../components/FAQ';
@@ -16,8 +14,6 @@ export default function Home() {
                 <TechPartners />
                 <About />
                 <ServicesSection />
-                <ProcessTimeline />
-                <TechStack />
                 <Projects />
                 <FAQ />
                 <ContactSection />

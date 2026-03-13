@@ -39,7 +39,7 @@ export default function FAQ() {
     const isInView = useInView(ref, { once: true, margin: "-100px" });
 
     return (
-        <section className="pt-32 pb-16 relative bg-[#030303] overflow-hidden" id="faq">
+        <section className="pt-8 pb-16 relative bg-[#030303] overflow-hidden" id="faq">
             {/* Ambient Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-[400px] bg-primary-900/10 blur-[150px] rounded-full pointer-events-none" />
 

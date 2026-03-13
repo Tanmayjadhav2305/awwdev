@@ -35,10 +35,10 @@ export default function Footer() {
                     <div className="sm:col-span-1 lg:col-span-2 lg:ml-auto">
                         <h3 className="text-white font-bold tracking-wider uppercase text-sm mb-6">Services</h3>
                         <ul className="space-y-4">
-                            <li><Link to="/services/website-development" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Website Development</Link></li>
-                            <li><Link to="/services/ui-ux-design" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">UI/UX Design</Link></li>
-                            <li><Link to="/services/scalable-web-architecture" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Scalable Web Architecture</Link></li>
-                            <li><Link to="/services/mobile-apps" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Mobile Apps</Link></li>
+                            <li><Link to="/services/website-development" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">UI/UX Design</Link></li>
+                            <li><Link to="/services/website-development" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Custom Development</Link></li>
+                            <li><Link to="/services/website-development" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">WordPress & Shopify</Link></li>
+                            <li><Link to="/services/website-development" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">SEO Optimization</Link></li>
                         </ul>
                     </div>
 
@@ -46,9 +46,9 @@ export default function Footer() {
                     <div className="sm:col-span-1 lg:col-span-2 lg:ml-auto">
                         <h3 className="text-white font-bold tracking-wider uppercase text-sm mb-6">Company</h3>
                         <ul className="space-y-4">
-                            <li><a href="/#about" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">About Us</a></li>
-                            <li><a href="/#projects" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Our Projects</a></li>
-                            <li><a href="/#contact" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Contact</a></li>
+                            <li><Link to="/about" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">About Us</Link></li>
+                            <li><Link to="/projects" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Our Projects</Link></li>
+                            <li><Link to="/contact" className="text-gray-400 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 text-sm lg:text-base">Contact</Link></li>
                         </ul>
                     </div>
 

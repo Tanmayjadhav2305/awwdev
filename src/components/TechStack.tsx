@@ -1,14 +1,14 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Layout, Server, Cloud, Database, Palette, Smartphone } from 'lucide-react';
+import { Layout, Palette, Code2, Globe, Sparkles, Search } from 'lucide-react';
 
 const technologies = [
-    { name: "React / Next.js / WP", category: "Web Dev", colSpan: "md:col-span-2", rowSpan: "md:row-span-1", glow: "from-cyan-500/20", icon: Layout },
-    { name: "Figma / Framer", category: "Design (UI/UX)", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-pink-500/20", icon: Palette },
-    { name: "Node / Go", category: "Backend", colSpan: "md:col-span-1", rowSpan: "md:row-span-2", glow: "from-green-500/20", icon: Server },
-    { name: "PostgreSQL", category: "Database", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-blue-500/20", icon: Database },
-    { name: "React Native", category: "Applications (Mobile)", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-indigo-500/20", icon: Smartphone },
-    { name: "AWS / Docker", category: "Cloud / DevOps", colSpan: "md:col-span-2", rowSpan: "md:row-span-1", glow: "from-orange-500/20", icon: Cloud },
+    { name: "React / Next.js", category: "Frontend Architecure", colSpan: "md:col-span-2", rowSpan: "md:row-span-1", glow: "from-cyan-500/20", icon: Layout },
+    { name: "Figma / Framer", category: "UI/UX Design", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-pink-500/20", icon: Palette },
+    { name: "WordPress / Shopify", category: "CMS Platforms", colSpan: "md:col-span-1", rowSpan: "md:row-span-2", glow: "from-blue-500/20", icon: Globe },
+    { name: "TypeScript / Tailwind", category: "Core Tooling", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-indigo-500/20", icon: Code2 },
+    { name: "Technical SEO", category: "Organic Growth", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", glow: "from-green-500/20", icon: Search },
+    { name: "Spline / Animations", category: "Micro-Interactions", colSpan: "md:col-span-2", rowSpan: "md:row-span-1", glow: "from-purple-500/20", icon: Sparkles },
 ];
 
 export default function TechStack() {

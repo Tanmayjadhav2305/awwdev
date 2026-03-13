@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
 const services = [
-    "Enterprise Web Dev",
-    "Cloud Architecture",
-    "System Integration",
-    "Performance Audits",
-    "UI/UX Engineering",
-    "Security & QA",
-    "Data Engineering",
+    "Custom UI/UX Design",
+    "Hardcoded Architecture",
+    "WordPress Solutions",
+    "Shopify Storefronts",
+    "SEO Optimization",
+    "Technical Audits",
+    "Web Engineering",
 ];
 
 export default function TechPartners() {

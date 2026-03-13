@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { getAllServices } from '../data/servicesData';
+import { getServiceById } from '../data/servicesData';
 
 export default function ServicesSection() {
 
@@ -20,10 +20,10 @@ export default function ServicesSection() {
 
                 <div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {getAllServices().map((svc) => {
-                            const Icon = svc.icon;
+                        {getServiceById('website-development')?.subServices.map((subSvc) => {
+                            const Icon = subSvc.icon;
                             return (
-                                <Link to={`/services/${svc.id}`} key={svc.id}>
+                                <Link to={`/services/website-development#${subSvc.id}`} key={subSvc.id}>
                                     <div className="h-full p-8 rounded-2xl bg-[#0a0a0a] border border-white/5 hover:border-white/10 transition-all duration-300 group cursor-pointer flex flex-col relative overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.1)] hover:-translate-y-2">
                                         {/* Hover Gradient Glow */}
                                         <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -31,12 +31,12 @@ export default function ServicesSection() {
                                         <div className="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-primary-500/20 group-hover:border-primary-500/30 group-hover:rotate-3 group-hover:scale-110 transition-all duration-300 relative z-10">
                                             <Icon className="w-7 h-7 text-white group-hover:text-primary-400 transition-colors" />
                                         </div>
-                                        <h3 className="text-2xl font-bold text-white mb-3 relative z-10">{svc.title}</h3>
+                                        <h3 className="text-2xl font-bold text-white mb-3 relative z-10">{subSvc.title}</h3>
                                         <p className="text-gray-400 leading-relaxed text-sm mb-6 relative z-10">
-                                            {svc.shortDesc}
+                                            {subSvc.shortDesc}
                                         </p>
                                         <div className="flex items-center text-primary-400 text-sm font-semibold group-hover:text-primary-300 transition-colors mt-auto relative z-10">
-                                            <span>Read More</span>
+                                            <span>Explore</span>
                                             <svg className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                             </svg>
